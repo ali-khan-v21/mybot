@@ -23,6 +23,7 @@ class BotManController extends Controller
      */
     public function tinker()
     {
+        
         return view('tinker');
     }
 
