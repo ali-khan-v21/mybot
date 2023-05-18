@@ -17,7 +17,9 @@ $botman->hears('Hi', function ($bot) {
     $bot->reply('Hello! '.$user->getFirstName());
     
 });
-$botman->hears('jalili',function($bot){
-    $bot ->reply('he is');
-});
+
 $botman->hears('Start conversation', BotManController::class.'@startConversation');
+
+$botman->fallback(function($bot){
+    $bot->reply('wrong command');
+});
