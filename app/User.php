@@ -2,7 +2,11 @@
 
 namespace App;
 
+use App\Config;
+use App\Seller;
+use App\Purchased;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -15,7 +19,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+
+        'user_id',
+        'ref_id',
+        'firstname',
+        'lastname',
+        'username',
+        'status',
+        'test_requests',
+        'test_request_time',
     ];
 
     /**
@@ -23,7 +35,17 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class,'ref_id','ref_code');
+    }
+    public function configs(){
+        return $this->hasMany(Config::class);
+    }
+    public function pendingPurchases(){
+        return $this->hasMany(PendingPurchase::class);
+    }
+    public function purchaseds(){
+        return $this->hasMany(Purchased::class);
+    }
 }
